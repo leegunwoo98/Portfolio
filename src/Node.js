@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "./Node.css";
 import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 import Logo from "./Logo.js";
-
+import { scrollIntoView } from "seamless-scroll-polyfill";
 
 // Create a class that recieves props named name and image
 function Node(props) {
@@ -32,7 +32,7 @@ function Node(props) {
   };
 
   const children = () => {
-    console.log("hello")
+    console.log("hello");
     if (props.clicked && props.data.children != undefined && mounted) {
       return (
         <div className="children">
@@ -56,7 +56,7 @@ function Node(props) {
     setMounted(true);
   }, []);
   useEffect(() => {
-    ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    scrollIntoView(ref.current, { behavior: "smooth", block: "end" });
   }, [clicked]);
   return (
     <div className="Node-container" ref={ref}>
@@ -87,7 +87,6 @@ function Node(props) {
           msAnimationDuration: "0.2s",
         }}
       >
-
         <div className="name-header">{props.data.name}</div>
         <Logo url={props.data.image} name={props.data.name}></Logo>
 
