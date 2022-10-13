@@ -4,45 +4,46 @@ import "./Node.css";
 import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 import Logo from "./Logo.js";
 
+
 // Create a class that recieves props named name and image
-class Node extends React.Component {
+function Node(props) {
   //create a constructor
-  constructor(props) {
-    super(props);
-    this.state = {
-      clicked: {},
-      mounted: false,
-    };
-    // bind the handleClick function to the class
-    this.handleClick = this.handleClick.bind(this);
-    this.children = this.children.bind(this);
-    this.ref = React.createRef();
-  }
+  // constructor(props) {
+  //   super(props);
+  //   state = {
+  //     clicked: {},
+  //     mounted: false,
+  //   };
+  //   // bind the handleClick function to the class
+  //   handleClick = handleClick.bind(this);
+  //   children = children.bind(this);
+  //   ref = React.createRef();
+  // }
+  const [clicked, setClicked] = useState(0);
+  const [mounted, setMounted] = useState(1);
+  const ref = useRef(null);
 
-  handleClick(key) {
-    if (key === this.state.clicked) {
-      this.setState((this.state.clicked = {}));
+  const handleClick = (key) => {
+    if (key === clicked) {
+      setClicked({});
     } else {
-      this.setState((this.state.clicked = key));
+      setClicked(key);
     }
-  }
+  };
 
-  children() {
-    if (
-      this.props.clicked &&
-      this.props.data.children != undefined &&
-      this.state.mounted
-    ) {
+  const children = () => {
+    console.log("hello")
+    if (props.clicked && props.data.children != undefined && mounted) {
       return (
         <div className="children">
-          {this.props.data.children.map((child, index) => {
+          {props.data.children.map((child, index) => {
             return (
               <Node
                 data={child}
                 key={child.id}
                 id={child.id}
-                clicked={child == this.state.clicked}
-                handleClick={this.handleClick}
+                clicked={child == clicked}
+                handleClick={handleClick}
                 delay={index * 0.2}
               />
             );
@@ -50,60 +51,51 @@ class Node extends React.Component {
         </div>
       );
     }
-  }
-  componentDidMount() {
-    this.setState({ mounted: true });
-  }
-  componentDidUpdate() {
-    this.ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }
+  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [clicked]);
+  return (
+    <div className="Node-container" ref={ref}>
+      <button
+        className="Node"
+        id={props.data.id}
+        onClick={(e) => props.handleClick(props.data)}
+        style={{
+          animation: "fadein ease-in 0.2s",
+          WebkitAnimation: "fadein ease-in 0.2s",
+          MozAnimation: "fadein ease-in 0.2s",
+          Oanimation: "fadein ease-in 0.2s",
+          msAnimation: "fadein ease-in 0.2s",
+          animationDelay: props.delay + "s",
+          WebkitAnimationDelay: props.delay + "s",
+          MozAnimationDelay: props.delay + "s",
+          OanimationDelay: props.delay + "s",
+          msAnimationDelay: props.delay + "s",
+          animationFillMode: "forwards",
+          WebkitAnimationFillMode: "forwards",
+          MozAnimationFillMode: "forwards",
+          OanimationFillMode: "forwards",
+          msAnimationFillMode: "forwards",
+          animationDuration: "0.2s",
+          WebkitAnimationDuration: "0.2s",
+          MozAnimationDuration: "0.2s",
+          OanimationDuration: "0.2s",
+          msAnimationDuration: "0.2s",
+        }}
+      >
 
-  render() {
-    return (
-      <div className="Node-container" ref={this.ref}>
-        <button
-          className="Node"
-          id={this.props.data.id}
-          onClick={(e) => this.props.handleClick(this.props.data)}
-          style={{
-            animation: "fadein ease-in 0.2s",
-            WebkitAnimation: "fadein ease-in 0.2s",
-            MozAnimation: "fadein ease-in 0.2s",
-            Oanimation: "fadein ease-in 0.2s",
-            msAnimation: "fadein ease-in 0.2s",
-            animationDelay: this.props.delay + "s",
-            WebkitAnimationDelay: this.props.delay + "s",
-            MozAnimationDelay: this.props.delay + "s",
-            OanimationDelay: this.props.delay + "s",
-            msAnimationDelay: this.props.delay + "s",
-            animationFillMode: "forwards",
-            WebkitAnimationFillMode: "forwards",
-            MozAnimationFillMode: "forwards",
-            OanimationFillMode: "forwards",
-            msAnimationFillMode: "forwards",
-            animationDuration: "0.2s",
-            WebkitAnimationDuration: "0.2s",
-            MozAnimationDuration: "0.2s",
-            OanimationDuration: "0.2s",
-            msAnimationDuration: "0.2s",
-          }}
-        >
-          {/* {this.state.child_refs.map((ref) => {
-            if(ref!=undefined){
-              return <Xarrow start={this.ref} end={ref} />
-            }
-          }
-        )} */}
+        <div className="name-header">{props.data.name}</div>
+        <Logo url={props.data.image} name={props.data.name}></Logo>
 
-          <div className="name-header">{this.props.data.name}</div>
-          <Logo url={this.props.data.image} name={this.props.data.name}></Logo>
+        <div className="description">{props.data.description}</div>
+      </button>
 
-          <div className="description">{this.props.data.description}</div>
-        </button>
-
-        {this.children()}
-      </div>
-    );
-  }
+      {children()}
+    </div>
+  );
 }
 export default Node;

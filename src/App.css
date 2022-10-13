@@ -7,6 +7,7 @@
   position: absolute;
   margin-top: 5vh;
   width:100%;
+  z-index: 1;
 }
 
 #how {
@@ -22,6 +23,7 @@
   color: white;
   padding: 2%;
   border-radius: 3%;
+  z-index: 100;
 }
 #how_header {
   position: relative;
@@ -50,6 +52,7 @@ h1 {
   width:30px;
   height:30px;
   border-radius: 50%;
+  
 }
 #delete > svg {
   width:100%;
@@ -62,7 +65,7 @@ h1 {
   background-color: #ffffff49;
 }
 #help{
-  position: absolute;
+  position: fixed;
   top: 10px;
   right: 10px;
   display: flex;
@@ -72,6 +75,7 @@ h1 {
   width:30px;
   height:30px;
   border-radius: 50%;
+  z-index: 100;
 }
 #help > svg >path{
   width:100%;
