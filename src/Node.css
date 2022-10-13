@@ -1,0 +1,141 @@
+.Node-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+/* remove button styes */
+
+/*.Node fade in slowly*/
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.Node {
+  width: 100%;
+  color: white;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding: 5%;
+  opacity: 0;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 50vh;
+  border-radius: 5%;
+}
+.Node:hover {
+  background-color: #ffffff49;
+}
+.Node:active{
+    background-color: #ffffff1d;
+    box-shadow: 0 0 0 0.2rem #ffffff01;
+}
+.children {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+.Node-clicked {
+  width: clamp(100px, 33.3333%, 1000px);
+  color: white;
+  margin-bottom: 100px;
+  opacity: 0;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border: 10px solid;
+  border-color: transparent white transparent transparent;
+}
+.name-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 200%;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+.description {
+  font-size: clamp(10px, 1.7vw, 15px);
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-weight:400;
+  font-size:150%;
+  line-height: 1.6;
+}
