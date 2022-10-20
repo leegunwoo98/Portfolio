@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 //import style sheet named Node.css
-import "./Node.css";
+import "./Node.scss";
 import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 import Logo from "./Logo.js";
 import { scrollIntoView } from "seamless-scroll-polyfill";
