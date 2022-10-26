@@ -9,11 +9,11 @@ export default class SideNav extends React.Component {
     return (
       <div id="side_nav">
         <AiFillGithub
-          class="icon"
+          className="icon"
           onClick={() => openInNewTab("https://github.com/leegunwoo98")}
         />
         <AiFillLinkedin
-          class="icon"
+          className="icon"
           onClick={() =>
             openInNewTab("https://www.linkedin.com/in/gunwoo-lee-ba5921b5/")
           }

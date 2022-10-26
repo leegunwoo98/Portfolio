@@ -4,8 +4,11 @@ import "./Node.scss";
 import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 import Logo from "./Logo.js";
 import { scrollIntoView } from "seamless-scroll-polyfill";
+import ReactDOM from "react-dom";
+import Modal from "./Modal.js";
 
 // Create a class that recieves props named name and image
+
 function Node(props) {
   //create a constructor
   // constructor(props) {
@@ -19,47 +22,60 @@ function Node(props) {
   //   children = children.bind(this);
   //   ref = React.createRef();
   // }
-  const [clicked, setClicked] = useState(0);
-  const [mounted, setMounted] = useState(1);
+  const [clicked, setClicked] = useState({});
+  const [mounted, setMounted] = useState(false);
   const ref = useRef(null);
+  const myRef=useRef(null)
 
   const handleClick = (key) => {
-    if (key === clicked) {
-      setClicked({});
+    if (key.link) {
+      window.open(key.link, "_blank");
     } else {
-      setClicked(key);
+      if (key === clicked) {
+        setClicked({});
+      } else {
+        setClicked(key);
+      }
     }
   };
-
-  const children = () => {
-    console.log("hello");
-    if (props.clicked && props.data.children != undefined && mounted) {
-      return (
-        <div className="children">
-          {props.data.children.map((child, index) => {
-            return (
-              <Node
-                data={child}
-                key={child.id}
-                id={child.id}
-                clicked={child == clicked}
-                handleClick={handleClick}
-                delay={index * 0.2}
-              />
-            );
-          })}
-        </div>
-      );
-    }
-  };
+  /*when component is unmounted set clicked to null*/
+  // useEffect(() => {
+  //   return () => {
+  //     setClicked({});
+  //   };
+  // }, []);
   useEffect(() => {
     setMounted(true);
   }, []);
+  //when component mount
+
   useEffect(() => {
-    scrollIntoView(ref.current, { behavior: "smooth", block: "end" });
+    if (clicked) {
+      scrollIntoView(props.rootRef.current, {
+        behavior: "smooth",
+        block: "end",
+      });
+    } else {
+      scrollIntoView(ref.current, { behavior: "smooth", block: "start" });
+    }
   }, [clicked]);
   return (
-    <div className="Node-container" ref={ref}>
+    <div className="Node-container">
+      {mounted && props.parentRef && myRef?
+          <Xarrow
+            start={props.parentRef}
+            end={myRef}
+            color="white"
+            strokeWidth={3}
+            path="smooth"
+            arrowLength={0}
+            headSize={0}
+            dashness={false}  
+            startAnchor="bottom"
+            endAnchor="top"
+            />
+        : null
+      }
       <button
         className="Node"
         id={props.data.id}
@@ -87,14 +103,86 @@ function Node(props) {
           msAnimationDuration: "0.2s",
         }}
       >
-        <div className="name-header">{props.data.name}</div>
-        <Logo url={props.data.image} name={props.data.name}></Logo>
+        <div className="name-header" ref={myRef}>
+          {props.data.name}
+        </div>
+        <Logo url={props.data.image} name={props.data.name} />
 
-        <div className="description">{props.data.description}</div>
+        <div className="description" ref={ref}>
+          {props.data.description}
+        </div>
       </button>
-
-      {children()}
+      <Children
+        data={props}
+        parentRef={ref}
+        clicked={clicked}
+        handleClick={handleClick}
+      />
     </div>
   );
+}
+
+function Children({ data, parentRef, clicked, handleClick }) {
+  const [mounted, setMounted] = useState(0);
+  // if component mount set mount to 1
+  useEffect(() => {
+    setMounted(1);
+  });
+  if (data.clicked && data.data.children != undefined && mounted === 1) {
+    const rootNode = data.rootRef;
+    return (
+      <Modal modalRoot={rootNode.current}>
+        <div className="children">
+          {data.data.children.map((child, index) => {
+            return (
+              <ChildrenElement
+                child={child}
+                index={index}
+                data={data}
+                parentRef={parentRef}
+                clicked={clicked}
+                handleClick={handleClick}
+                rootRef={rootNode}
+              />
+            );
+          })}
+        </div>
+      </Modal>
+    );
+  }
+}
+function ChildrenElement({
+  child,
+  index,
+  data,
+  parentRef,
+  clicked,
+  handleClick,
+  rootRef,
+}) {
+  const childRef = useRef();
+  const [mounted, setMounted] = useState(false);
+  // if component mount set mount to 1
+  useEffect(() => {
+    //console.log parentRef position
+    //console.log(parentRef.current.getBoundingClientRect());
+
+    setMounted(true);
+  }, [childRef]);
+  const element = (
+    <div>
+      <Node
+        data={child}
+        key={child.id}
+        id={child.id}
+        clicked={child == clicked}
+        handleClick={handleClick}
+        delay={index * 0.2}
+        rootRef={rootRef}
+        parentRef={parentRef}
+      />
+    </div>
+  );
+  return element;
 }
 export default Node;

@@ -104,26 +104,26 @@
 }
 .Node:hover {
   /* scale larger with animation*/
-  transform: scale(1.2);
+  transform: scale(1.05);
   transition: transform 0.2s ease-in;
-  -o-transform: scale(1.2);
+  -o-transform: scale(1.05);
   -o-transition: -o-transform 0.2s ease-in;
-  -ms-transform: scale(1.2);
+  -ms-transform: scale(1.05);
   -ms-transition: -ms-transform 0.2s ease-in;
-  -moz-transform: scale(1.2);
+  -moz-transform: scale(1.05);
   -moz-transition: -moz-transform 0.2s ease-in;
-  -webkit-transform: scale(1.2);
+  -webkit-transform: scale(1.05);
   -webkit-transition: -webkit-transform 0.2s ease-in;
-}
-.Node:active {
-  background-color: #ffffff1d;
-  box-shadow: 0 0 0 0.2rem #ffffff01;
 }
 .children {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
+}
+.clicked{
+  background-color: #ffffff1d;
+  box-shadow: 0 0 0 0.2rem #ffffff01;
 }
 .Node-clicked {
   width: clamp(100px, 33.3333%, 1000px);

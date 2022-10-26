@@ -52,12 +52,9 @@ const data = {
             {
               id: "6",
               name: "Major",
-              children: [
-                {
-                }
-              ]
-            }
-          ]
+              children: [{}],
+            },
+          ],
         },
       ],
     },
@@ -97,7 +94,27 @@ const data = {
     {
       name: "Projects",
       id: "9",
-      children: [],
+      children: [
+        {
+          name: "dPay",
+          image: "images/dPay.jpeg",
+          id: "10",
+          description:
+            "A 2day project in WashU Hackathon. Created a divide and pay app using React-Native, Expo, Express, SQL, Node.JS, AWS RDS and Prisma",
+          link: "https://devpost.com/software/dpay",
+        },
+        {
+          name: "W-Block",
+          description:
+          "A landing page for W-Block using React.",
+          link:"w-block.com"
+        },{
+          name: "Booking API",
+          description:
+          "A booking API for Artmonstay using Express, Node.js, and MongoDB.",
+          link:'https://github.com/leegunwoo98/artmon_homepage'
+        }
+      ],
     },
   ],
 };

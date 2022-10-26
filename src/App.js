@@ -6,7 +6,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SideNav from "./SideNav.js";
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -69,12 +68,13 @@ class App extends React.Component {
       <div className="App">
         {this.help()}
         <SideNav />
-        <div id="root_node">
+        <div id="root_node" ref={this.ref}>
           <Node
             data={data}
             key={data.id}
             clicked={data === this.state.clicked}
             handleClick={this.handleClick}
+            rootRef={this.ref}
           />
         </div>
       </div>
@@ -83,3 +83,4 @@ class App extends React.Component {
 }
 
 export default App;
+

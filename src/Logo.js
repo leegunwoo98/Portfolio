@@ -1,7 +1,6 @@
 import "./Logo.css";
 import React, { useRef, useState, useEffect } from "react";
 function Logo(props) {
-  console.log(props);
   let url = props.url;
   let name = props.name;
   const ref = useRef(null);
@@ -51,8 +50,8 @@ function Logo(props) {
               className="text"
             x="50%"
               y="50%"
-              dominant-baseline="middle"
-              text-anchor="middle"
+              dominantBaseline="middle"
+              textAnchor="middle"
               fill="white"
             >
               {name}
