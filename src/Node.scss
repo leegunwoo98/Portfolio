@@ -104,16 +104,16 @@
 }
 .Node:hover {
   /* scale larger with animation*/
-  transform: scale(1.05);
-  transition: transform 0.2s ease-in;
-  -o-transform: scale(1.05);
-  -o-transition: -o-transform 0.2s ease-in;
-  -ms-transform: scale(1.05);
-  -ms-transition: -ms-transform 0.2s ease-in;
-  -moz-transform: scale(1.05);
-  -moz-transition: -moz-transform 0.2s ease-in;
-  -webkit-transform: scale(1.05);
-  -webkit-transition: -webkit-transform 0.2s ease-in;
+  // transform: scale(1.05);
+  // transition: transform 0.2s ease-in;
+  // -o-transform: scale(1.05);
+  // -o-transition: -o-transform 0.2s ease-in;
+  // -ms-transform: scale(1.05);
+  // -ms-transition: -ms-transform 0.2s ease-in;
+  // -moz-transform: scale(1.05);
+  // -moz-transition: -moz-transform 0.2s ease-in;
+  // -webkit-transform: scale(1.05);
+  // -webkit-transition: -webkit-transform 0.2s ease-in;
 }
 .children {
   display: flex;

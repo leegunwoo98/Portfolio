@@ -59,23 +59,10 @@ function Node(props) {
       scrollIntoView(ref.current, { behavior: "smooth", block: "start" });
     }
   }, [clicked]);
+
+
   return (
     <div className="Node-container">
-      {mounted && props.parentRef && myRef?
-          <Xarrow
-            start={props.parentRef}
-            end={myRef}
-            color="white"
-            strokeWidth={3}
-            path="smooth"
-            arrowLength={0}
-            headSize={0}
-            dashness={false}  
-            startAnchor="bottom"
-            endAnchor="top"
-            />
-        : null
-      }
       <button
         className="Node"
         id={props.data.id}
@@ -103,6 +90,23 @@ function Node(props) {
           msAnimationDuration: "0.2s",
         }}
       >
+        {mounted && props.parentRef && myRef ? (
+          <Xwrapper>
+            <Xarrow
+              start={props.parentRef}
+              end={myRef}
+              color="white"
+              strokeWidth={4}
+              path="smooth"
+              arrowLength={0}
+              headSize={0}
+              dashness={false}
+              startAnchor="bottom"
+              endAnchor="top"
+              animateDrawing={true}
+            />
+          </Xwrapper>
+        ) : null}
         <div className="name-header" ref={myRef}>
           {props.data.name}
         </div>
