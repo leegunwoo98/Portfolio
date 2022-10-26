@@ -60,7 +60,6 @@ function Node(props) {
     }
   }, [clicked]);
 
-
   return (
     <div className="Node-container">
       <button
