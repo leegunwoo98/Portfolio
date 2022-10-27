@@ -97,7 +97,7 @@ const data = {
       children: [
         {
           name: "dPay",
-          image: "images/dPay.jpeg",
+          image: "images/dPay.png",
           id: "10",
           description:
             "A 2day project in WashU Hackathon. Created a divide and pay app using React-Native, Expo, Express, SQL, Node.JS, AWS RDS and Prisma",
