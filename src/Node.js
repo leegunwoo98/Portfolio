@@ -10,22 +10,12 @@ import Modal from "./Modal.js";
 // Create a class that recieves props named name and image
 
 function Node(props) {
-  //create a constructor
-  // constructor(props) {
-  //   super(props);
-  //   state = {
-  //     clicked: {},
-  //     mounted: false,
-  //   };
-  //   // bind the handleClick function to the class
-  //   handleClick = handleClick.bind(this);
-  //   children = children.bind(this);
-  //   ref = React.createRef();
-  // }
   const [clicked, setClicked] = useState({});
   const [mounted, setMounted] = useState(false);
+  const [render, setRender] = useState(false);
+  const [parentRef, setParentRef] = useState(null);
   const ref = useRef(null);
-  const myRef=useRef(null)
+  const myRef = useRef(null);
 
   const handleClick = (key) => {
     if (key.link) {
@@ -38,15 +28,15 @@ function Node(props) {
       }
     }
   };
-  /*when component is unmounted set clicked to null*/
-  // useEffect(() => {
-  //   return () => {
-  //     setClicked({});
-  //   };
-  // }, []);
   useEffect(() => {
     setMounted(true);
   }, []);
+  useEffect(() => {
+    if (props.parentRef) {
+      setParentRef(props.parentRef);
+    }
+  }, []);
+
   //when component mount
 
   useEffect(() => {
@@ -89,20 +79,21 @@ function Node(props) {
           msAnimationDuration: "0.2s",
         }}
       >
-        {mounted && props.parentRef && myRef ? (
+        {mounted && props.parentMounted !== undefined && parentRef && myRef ? (
+          //console.log(props.id, parentRef.current.getBoundingClientRect())
           <Xwrapper>
             <Xarrow
-              start={props.parentRef}
+              start={parentRef}
               end={myRef}
               color="white"
               strokeWidth={4}
               path="smooth"
               arrowLength={0}
               headSize={0}
-              dashness={false}
               startAnchor="bottom"
               endAnchor="top"
               animateDrawing={true}
+              zIndex={100}
             />
           </Xwrapper>
         ) : null}
@@ -111,81 +102,40 @@ function Node(props) {
         </div>
         <Logo url={props.data.image} name={props.data.name} />
 
-        <div className="description" ref={ref}>
-          {props.data.description}
-        </div>
+        <div className="description">{props.data.description}</div>
+        <div
+          className="empty"
+          style={{ width: "100%", height: 0 }}
+          ref={ref}
+        ></div>
       </button>
-      <Children
+      {/* <Children
         data={props}
         parentRef={ref}
         clicked={clicked}
         handleClick={handleClick}
-      />
+        parentMounted={mounted}
+      /> */}
+      {
+        props.clicked && props.data.children != undefined ? (
+          <Modal modalRoot={props.rootRef.current}>
+            {props.data.children.map((child, index) => {
+              return <Node
+                data={child}
+                key={child.id}
+                clicked={child == clicked}
+                handleClick={handleClick} 
+                delay={index * 0.2}
+                rootRef={props.rootRef}
+                parentRef={ref}
+                parentMounted={mounted}
+              />;
+            })}
+          </Modal>
+        ) : null
+      }
     </div>
   );
 }
 
-function Children({ data, parentRef, clicked, handleClick }) {
-  const [mounted, setMounted] = useState(0);
-  // if component mount set mount to 1
-  useEffect(() => {
-    setMounted(1);
-  });
-  if (data.clicked && data.data.children != undefined && mounted === 1) {
-    const rootNode = data.rootRef;
-    return (
-      <Modal modalRoot={rootNode.current}>
-        <div className="children">
-          {data.data.children.map((child, index) => {
-            return (
-              <ChildrenElement
-                child={child}
-                index={index}
-                data={data}
-                parentRef={parentRef}
-                clicked={clicked}
-                handleClick={handleClick}
-                rootRef={rootNode}
-              />
-            );
-          })}
-        </div>
-      </Modal>
-    );
-  }
-}
-function ChildrenElement({
-  child,
-  index,
-  data,
-  parentRef,
-  clicked,
-  handleClick,
-  rootRef,
-}) {
-  const childRef = useRef();
-  const [mounted, setMounted] = useState(false);
-  // if component mount set mount to 1
-  useEffect(() => {
-    //console.log parentRef position
-    //console.log(parentRef.current.getBoundingClientRect());
-
-    setMounted(true);
-  }, [childRef]);
-  const element = (
-    <div>
-      <Node
-        data={child}
-        key={child.id}
-        id={child.id}
-        clicked={child == clicked}
-        handleClick={handleClick}
-        delay={index * 0.2}
-        rootRef={rootRef}
-        parentRef={parentRef}
-      />
-    </div>
-  );
-  return element;
-}
 export default Node;

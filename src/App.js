@@ -1,5 +1,5 @@
 import logo from "./logo.svg";
-import "./App.scss";
+import "./App.css";
 import Node from "./Node.js";
 import data from "./data.js";
 import React from "react";
@@ -69,13 +69,15 @@ class App extends React.Component {
         {this.help()}
         <SideNav />
         <div id="root_node" ref={this.ref}>
-          <Node
-            data={data}
-            key={data.id}
-            clicked={data === this.state.clicked}
-            handleClick={this.handleClick}
-            rootRef={this.ref}
-          />
+          <div className="modal">
+            <Node
+              data={data}
+              key={data.id}
+              clicked={data === this.state.clicked}
+              handleClick={this.handleClick}
+              rootRef={this.ref}
+            />
+          </div>
         </div>
       </div>
     );

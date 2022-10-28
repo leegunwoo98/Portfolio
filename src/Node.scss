@@ -6,6 +6,11 @@
   margin-left: 1vw;
   margin-right: 1vw;
 }
+.modal{
+  display: flex;
+  flex-direction:row;
+  justify-content:center;
+}
 .example-appear {
   opacity: 0.01;
 }
