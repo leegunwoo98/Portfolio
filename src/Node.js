@@ -13,9 +13,41 @@ function Node(props) {
   const [clicked, setClicked] = useState({});
   const [mounted, setMounted] = useState(false);
   const [render, setRender] = useState(false);
+  const [checkChildDate, setCheckChildDate] = useState(false);
   const [parentRef, setParentRef] = useState(null);
   const ref = useRef(null);
   const myRef = useRef(null);
+  // const descriptionRef=useRef(null);
+  // const [descriptionSize, setDescriptionSize] = useState(20);
+  // const [windowSize, setWindowSize] = useState({
+  //   width: undefined,
+  //   height: undefined,
+  // });
+  // useEffect(() => {
+  //   // Handler to call on window resize
+  //   function handleResize() {
+  //     // Set window width/height to state
+  //     setWindowSize({
+  //       width: window.innerWidth,
+  //       height: window.innerHeight,
+  //     });
+  //   }
+  //   // Add event listener
+  //   window.addEventListener("resize", handleResize);
+  //   // Call handler right away so state gets updated with initial window size
+  //   handleResize();
+  //   // Remove event listener on cleanup
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []); // Empty array ensures that effect is only run on mount
+  // useEffect(()=> {
+  //   if(descriptionRef.current){
+  //     let width = descriptionRef.current.offsetWidth;
+  //     let text = descriptionRef.current.innerText;
+  //     let fontSize = calculateFontSize(width*4, text, 60);
+  //     setDescriptionSize(fontSize);
+  //   }
+
+  // },[windowSize])
 
   const handleClick = (key) => {
     if (key.link) {
@@ -30,6 +62,15 @@ function Node(props) {
   };
   useEffect(() => {
     setMounted(true);
+    //check if any of the children have date items
+    if (props.data.children) {
+      props.data.children.forEach((child) => {
+        if (child.date) {
+          console.log("hello")
+          setCheckChildDate(true);
+        }
+      });
+    }
   }, []);
   useEffect(() => {
     if (props.parentRef) {
@@ -37,7 +78,7 @@ function Node(props) {
     }
   }, [parentRef]);
   useEffect(() => {
-    if (props.clicked !==props.data){
+    if (props.clicked !== props.data) {
       setClicked(null);
     }
   }, [props.clicked]);
@@ -86,33 +127,35 @@ function Node(props) {
       >
         {mounted && props.parentMounted !== undefined && parentRef && myRef ? (
           //console.log(props.id, parentRef.current.getBoundingClientRect())
-          <Xwrapper>
-            <Xarrow
-              start={parentRef}
-              end={myRef}
-              color="white"
-              strokeWidth={4}
-              path="smooth"
-              arrowLength={0}
-              headSize={0}
-              startAnchor="bottom"
-              endAnchor="top"
-              animateDrawing={true}
-              zIndex={100}
-            />
-          </Xwrapper>
+
+          <Xarrow
+            start={parentRef}
+            end={myRef}
+            color="white"
+            strokeWidth={4}
+            path="smooth"
+            arrowLength={0}
+            headSize={0}
+            startAnchor="bottom"
+            endAnchor="top"
+            animateDrawing={true}
+            zIndex={100}
+          />
         ) : null}
         <div className="name-header" ref={myRef}>
           {props.data.name}
         </div>
         <Logo url={props.data.image} name={props.data.name} />
+        {props.neighborDate ? 
+          props.data.date ? (
+          <div className="date">{props.data.date}</div>
+        ) : (
+          <div className="date">&#8194;</div>
+        ) : null}
 
-        <div className="description">{props.data.description}</div>
-        <div
-          className="empty"
-          style={{ width: "100%", height: 0 }}
-          ref={ref}
-        ></div>
+        <div className="description" ref={ref}>
+          {props.data.description}
+        </div>
       </button>
       {props.clicked === props.data && props.data.children != undefined ? (
         <Modal modalRoot={props.rootRef.current}>
@@ -127,6 +170,7 @@ function Node(props) {
                 rootRef={props.rootRef}
                 parentRef={ref}
                 parentMounted={mounted}
+                neighborDate={checkChildDate}
               />
             );
           })}
@@ -135,5 +179,11 @@ function Node(props) {
     </div>
   );
 }
-
+function calculateFontSize(width, content, max) {
+  //fit width
+  console.log(width)
+  console.log(content.length)
+  var fontSize = Math.min(max, width / content.length);
+  return fontSize;
+}
 export default Node;

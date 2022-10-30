@@ -15,6 +15,7 @@ const data = {
           image:
             "https://marcomm.wustl.edu/wp-content/uploads/2015/07/Washington_University_SealRGB200-oqtfje.png",
           id: "2",
+          date: "2019.08 - 2023.05",
           description: "Washington University in St. Louis",
           children: [
             {
@@ -66,20 +67,44 @@ const data = {
         {
           name: "S&G Inc",
           id: "10",
-          description: "CTO",
+          description: "CTO for a hotel management company",
+          children: [
+            {
+              id:"54",
+              name: "Backend",
+              description:"Created booking APIs, pricing algorithm, Kiosk API, Roomservice APIs using Node.js, Express, and MongoDB",
+            },
+            {
+              id:"55",
+              name: "Management",
+              description:"Setup work environments and tools for the team, managed the team, and created tentative roadmaps for the company",
+            }
+          ]
         },
         {
           name: "WashU Medical School",
           image:
             "https://upload.wikimedia.org/wikipedia/en/thumb/d/d7/WashU_St._Louis_seal.svg/1200px-WashU_St._Louis_seal.svg.png",
           id: "11",
-          description: "research technician",
+          description: "Research Technician",
           children: [
             {
-              name: "project1",
-              image: "images/gunwoo.jpg",
+              
+
+            },
+            {
+              name: "Data Collection",
               id: "12",
-              description: "project1",
+              description: "Used machine vision and April Tags to distinguish individual mice in a group behavior experiment. Collected Neuronal Data of 12 mice from 4 regions of the brain using a 16 channel deep brain probe",
+              
+            },{
+              name:"Design",
+              id:"65",
+              description:"Designed and built a custom 3D printed probe with Nichrome Wire Tetrals to be inserted in to the mouse brain to collect neuronal data. "
+            },{
+              name:"Data Analysis",
+              id:"64",
+              description:"Created a machine learning model using python, Keras and tensorflow to classify basic need's of mice such as drinking and eating based on the 16 channel neuronal data."
             },
           ],
         },

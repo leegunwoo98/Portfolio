@@ -5,6 +5,7 @@ import data from "./data.js";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SideNav from "./SideNav.js";
+import { Xwrapper } from "react-xarrows";
 
 class App extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class App extends React.Component {
   // componentDidMount
   componentDidMount() {
     this.setState({ mounted: true });
-    
+
   }
   help() {
     if (this.state.help_needed) {
@@ -70,17 +71,19 @@ class App extends React.Component {
         {this.help()}
         <SideNav />
         <div>
-          <div id="root_node" ref={this.ref}>
-            <div className="modal">
-              <Node
-                data={data}
-                key={data.id}
-                clicked={this.state.clicked}
-                handleClick={this.handleClick}
-                rootRef={this.ref}
-              />
+          <Xwrapper>
+            <div id="root_node" ref={this.ref}>
+              <div className="modal">
+                <Node
+                  data={data}
+                  key={data.id}
+                  clicked={this.state.clicked}
+                  handleClick={this.handleClick}
+                  rootRef={this.ref}
+                />
+              </div>
             </div>
-          </div>
+          </Xwrapper>
         </div>
       </div>
     );
