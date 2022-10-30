@@ -69,7 +69,7 @@ const data = {
           description: "CTO",
         },
         {
-          name: "Washington University School of Medicine",
+          name: "WashU Medical School",
           image:
             "https://upload.wikimedia.org/wikipedia/en/thumb/d/d7/WashU_St._Louis_seal.svg/1200px-WashU_St._Louis_seal.svg.png",
           id: "11",
@@ -105,7 +105,7 @@ const data = {
         },
         {
           name: "W-Block",
-          description: "A landing page for W-Block using React.",
+          description: "Created a landing page for W-Block using React. Working on a full-stack app for blockchain transactions",
           id:"16",
           link: "https://w-block.com",
         },

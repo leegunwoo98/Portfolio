@@ -22,7 +22,7 @@ function Node(props) {
       window.open(key.link, "_blank");
     } else {
       if (key === clicked) {
-        setClicked({});
+        setClicked(null);
       } else {
         setClicked(key);
       }
@@ -35,7 +35,12 @@ function Node(props) {
     if (props.parentRef) {
       setParentRef(props.parentRef);
     }
-  }, []);
+  }, [parentRef]);
+  useEffect(() => {
+    if (props.clicked !==props.data){
+      setClicked(null);
+    }
+  }, [props.clicked]);
 
   //when component mount
 
@@ -109,31 +114,24 @@ function Node(props) {
           ref={ref}
         ></div>
       </button>
-      {/* <Children
-        data={props}
-        parentRef={ref}
-        clicked={clicked}
-        handleClick={handleClick}
-        parentMounted={mounted}
-      /> */}
-      {
-        props.clicked && props.data.children != undefined ? (
-          <Modal modalRoot={props.rootRef.current}>
-            {props.data.children.map((child, index) => {
-              return <Node
+      {props.clicked === props.data && props.data.children != undefined ? (
+        <Modal modalRoot={props.rootRef.current}>
+          {props.data.children.map((child, index) => {
+            return (
+              <Node
                 data={child}
                 key={child.id}
-                clicked={child == clicked}
-                handleClick={handleClick} 
+                clicked={clicked}
+                handleClick={handleClick}
                 delay={index * 0.2}
                 rootRef={props.rootRef}
                 parentRef={ref}
                 parentMounted={mounted}
-              />;
-            })}
-          </Modal>
-        ) : null
-      }
+              />
+            );
+          })}
+        </Modal>
+      ) : null}
     </div>
   );
 }

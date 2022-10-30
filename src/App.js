@@ -27,6 +27,7 @@ class App extends React.Component {
   // componentDidMount
   componentDidMount() {
     this.setState({ mounted: true });
+    
   }
   help() {
     if (this.state.help_needed) {
@@ -68,15 +69,17 @@ class App extends React.Component {
       <div className="App">
         {this.help()}
         <SideNav />
-        <div id="root_node" ref={this.ref}>
-          <div className="modal">
-            <Node
-              data={data}
-              key={data.id}
-              clicked={data === this.state.clicked}
-              handleClick={this.handleClick}
-              rootRef={this.ref}
-            />
+        <div>
+          <div id="root_node" ref={this.ref}>
+            <div className="modal">
+              <Node
+                data={data}
+                key={data.id}
+                clicked={this.state.clicked}
+                handleClick={this.handleClick}
+                rootRef={this.ref}
+              />
+            </div>
           </div>
         </div>
       </div>
