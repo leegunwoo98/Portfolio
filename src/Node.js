@@ -179,11 +179,4 @@ function Node(props) {
     </div>
   );
 }
-function calculateFontSize(width, content, max) {
-  //fit width
-  console.log(width)
-  console.log(content.length)
-  var fontSize = Math.min(max, width / content.length);
-  return fontSize;
-}
 export default Node;
