@@ -9,7 +9,7 @@ import Modal from "./Modal.js";
 
 // Create a class that recieves props named name and image
 
-function Node(props) {
+const Node=React.memo(props => {
   const [clicked, setClicked] = useState({});
   const [mounted, setMounted] = useState(false);
   const [render, setRender] = useState(false);
@@ -17,38 +17,6 @@ function Node(props) {
   const [parentRef, setParentRef] = useState(null);
   const ref = useRef(null);
   const myRef = useRef(null);
-  // const descriptionRef=useRef(null);
-  // const [descriptionSize, setDescriptionSize] = useState(20);
-  // const [windowSize, setWindowSize] = useState({
-  //   width: undefined,
-  //   height: undefined,
-  // });
-  // useEffect(() => {
-  //   // Handler to call on window resize
-  //   function handleResize() {
-  //     // Set window width/height to state
-  //     setWindowSize({
-  //       width: window.innerWidth,
-  //       height: window.innerHeight,
-  //     });
-  //   }
-  //   // Add event listener
-  //   window.addEventListener("resize", handleResize);
-  //   // Call handler right away so state gets updated with initial window size
-  //   handleResize();
-  //   // Remove event listener on cleanup
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []); // Empty array ensures that effect is only run on mount
-  // useEffect(()=> {
-  //   if(descriptionRef.current){
-  //     let width = descriptionRef.current.offsetWidth;
-  //     let text = descriptionRef.current.innerText;
-  //     let fontSize = calculateFontSize(width*4, text, 60);
-  //     setDescriptionSize(fontSize);
-  //   }
-
-  // },[windowSize])
-
   const handleClick = (key) => {
     if (key.link) {
       window.open(key.link, "_blank");
@@ -61,12 +29,12 @@ function Node(props) {
     }
   };
   useEffect(() => {
+    console.log(props)
     setMounted(true);
     //check if any of the children have date items
     if (props.data.children) {
       props.data.children.forEach((child) => {
         if (child.date) {
-          console.log("hello")
           setCheckChildDate(true);
         }
       });
@@ -178,5 +146,5 @@ function Node(props) {
       ) : null}
     </div>
   );
-}
+})
 export default Node;
